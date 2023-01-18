@@ -1,0 +1,50 @@
+﻿@model List<InternetShop.Domain.Entity.Clothes>
+
+@{
+    ViewBag.Title = "Корзина";
+    Layout = "_Layout";
+}
+
+
+<div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Корзина пользователя: @User.Identity.Name</h5>
+            </div>
+            </div>
+@if (Model == null || Model.Count == 0)
+{
+    <div style="padding:40px;"></div>
+    <div class="card col-md-12">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Список заказов пуст</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="row row-cols-1 text-center">
+                <div class="col" style="padding: 10px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Название: @item.Name</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Стоимость: @item.Price</li>
+                        </ul>
+                        <div class="card-body">
+                            <a asp-controller="Clothes" asp-action="GetClothes" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a>
+                            <a asp-controller="Basket" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>   
+}

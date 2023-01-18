@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div style="padding: 10px;"></div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="card col-md-12">
+        <div class="card-body">
+            <h5 class="card-title text-center">Добро пожаловать на сайт IG.Shop</h5>
+        </div>
+    </div>
+
+    <div style="padding: 10px;"></div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                <img src="https://favoritti.com/upload/medialibrary/0001/1myzhskaia-odezhda-v-zhenskom-garderobe-2.jpg"  height="350" class="card-img-top card-image" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Вся одежда</h5>
+                        
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Clothes" asp-action="GetAllClothes" class="btn btn-primary">Список товаров</a>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://smartcasuals.ru/wp-content/uploads/2020/05/MyCollages-10.jpg" height="350" class="card-img-top card-image" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">Мужская одежда</h5>
+                    
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Clothes" asp-action="GetManClothes" class="btn btn-primary">Список товаров</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://fainaidea.com/wp-content/uploads/2020/02/4s82d59vsdvs-1024x682.jpg" height="350" class="card-img-top card-image" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">Женская одежда</h5>
+                    
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Clothes" asp-action="GetWomanClothes" class="btn btn-primary">Список товаров</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            Вы не авторизовались
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>Для просмотра контента вы должны авторизоваться</p>
+                <div class="text-right">
+                    <p style="font-size:small; color:red">Admin(Login:igor     Password:igor123)</p>
+                </div>
+            </blockquote>
+        </div>
+    </div>
+
+    <div style="padding: 10px;"></div>
+
+    
+}
+

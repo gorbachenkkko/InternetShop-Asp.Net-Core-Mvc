@@ -1,0 +1,43 @@
+﻿@model InternetShop.Domain.Entity.Clothes
+
+@using InternetShop.Domain.Enum
+@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+                                        @*ФУНКЦИЯ ДЛЯ ВЫВОДА DISPLAY NAME ПЕРЕЧИСЛЕНИЙ*@
+@functions{
+    public string GetEnumDisplayName(Enum enumType)
+    {
+        
+        return enumType.GetType().GetMember(enumType.ToString())
+                       .First()
+                       .GetCustomAttribute<DisplayAttribute>()
+                       .Name;
+    }
+}
+<div style="padding: 10px;"></div>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src=@Model.ImageUrl width="400" height="600"
+                 class="img-fluid rounded-start rounded" alt="@Model?.Name">
+        </div>
+        <div class="col-md-4">
+            <div class="card-body">
+                <h5 class="card-title text-center">@Model?.Name</h5>
+                <p class="card-text"><b>Стоимость: </b>@Model?.Price грн</p>
+                <p class="card-text"><b>Тип: </b>@GetEnumDisplayName(Model?.СlothingType)</p>
+                <p class="card-text"><b>Пол: </b>@*@Model?.Gender*@ @GetEnumDisplayName(Model.Gender)</p>
+                <p class="card-text"><b>Размер: </b>@Model?.Size</p>
+                <p class="card-text"><b>Цвет: </b>@GetEnumDisplayName(Model?.Color)</p>
+                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
+                
+            </div>
+        </div>
+    </div>
+</div>

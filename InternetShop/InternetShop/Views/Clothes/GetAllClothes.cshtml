@@ -1,0 +1,69 @@
+﻿@model List<InternetShop.Domain.Entity.Clothes>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<style>
+    .card-buttons-group {
+        text-align: right;
+        padding: 10px;
+    }
+</style>
+
+<div style="padding: 10px;"></div>
+@if (Model.Count == 0)
+{
+    <div class="card col-md-12">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://images.prom.ua/2390994793_2390994793.jpg?PIMAGE_ID=2390994793" 
+                     class="img-fluid rounded-start rounded">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Список одежды пуст</h5>
+                    <p class="card-text">
+                        Список пополниться позже)))
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+else
+{
+    <div class="row">
+        @foreach (var clothes in Model)
+        {
+            <div class="row row-cols-1 col-md-4 text-center">
+                <div class="col" style="padding: 10px;">
+                    <div class="card">
+                        <img src=@clothes.ImageUrl class="card-img-top"  height="650" alt="@clothes.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@clothes.Name</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Стоимость: @clothes.Price грн</li>
+                            <li class="list-group-item">@clothes.Size</li>
+                        </ul>
+                        <div class="card-body">
+                            <a asp-action="GetClothes" asp-route-id="@clothes.Id" class="btn btn-primary" >Перейти</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <hr/>
+                                <a asp-controller="Clothes" asp-action="Delete" asp-route-id="@clothes.Id" class="btn btn-danger">Удалить</a>
+                                <a asp-controller="Clothes" asp-action="Save" asp-route-id="@clothes.Id" class="btn btn-primary">Изменить</a>
+                            }
+                            
+                            <a asp-controller="Basket" asp-action="Add" asp-route-id="@clothes.Id" class="btn btn-success">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>   
+}
+

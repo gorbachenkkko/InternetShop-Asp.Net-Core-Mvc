@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Shop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/backImage.css" />
+@*    <link rel="stylesheet" href="~/css/menu.css" />*@
+    <link rel="stylesheet" href="~/css/paragraph.css" />
+    <link rel="stylesheet" href="~/css/card.css" />
+    <link rel="stylesheet" href="~/css/label.css" />
+    <link rel="stylesheet" href="~/css/AccountButtom.css" />
+</head>
+<body class="backgroundImage">
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: white;">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Impact; font-size:30px; background-color:white; border-radius:10px;">IG.Shop</span></a>
+            <button class="navbar-toggler badge-light" style="border-radius:10px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+                </svg>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <button class="dropbtn">Аккаунт</button>
+                            <div class="dropdown-content">
+
+                                <a  asp-controller="Account" asp-action="Register">
+                                    Регистрация
+                                </a>
+                                <a  asp-controller="Account" asp-action="Login">
+                                    Вход
+                                </a>
+                                
+                            </div>
+                        </div>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <button class="dropbtn">Одежда</button>
+                            <div class="dropdown-content">
+
+                                <a asp-controller="Clothes" asp-action="GetAllClothes">
+                                    Вся одежда
+                                </a>
+                                <a asp-controller="Clothes" asp-action="GetManClothes">
+                                    Мужская
+                                </a>
+                                <a asp-controller="Clothes" asp-action="GetWomanClothes">
+                                    Женская
+                                </a>
+                                
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <form method="post" asp-controller="Basket" asp-action="Detail">
+                                <input class="dropbtn"  type="submit" value="Корзина" />
+                            </form>
+                        </div>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="dropdown">
+                            <button class="dropbtn">Админ</button>
+                            <div class="dropdown-content">
+
+                                <a asp-controller="Clothes" asp-action="Save">
+                                    Добавить товар
+                                </a>
+                                <a asp-controller="User" asp-action="GetUsers">
+                                    Пользователи
+                                </a>
+                                
+                            </div>
+                        </div>
+                        
+                    }
+                </ul>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="dropdown">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input class="dropbtn" type="submit" value="Выход" />
+                        </form>
+                    </div>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid col-xl-12">
+        <main role="main">
+
+            @RenderBody()
+        </main>
+    </div>
+
+</body>
+</html>
